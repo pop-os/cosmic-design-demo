@@ -1,0 +1,12 @@
+debian/*
+!debian/changelog
+!debian/control
+!debian/copyright
+!debian/install
+!debian/rules
+!debian/source
+.cargo
+.idea
+target
+vendor
+vendor.tar

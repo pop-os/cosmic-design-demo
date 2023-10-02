@@ -120,7 +120,6 @@ where
                         search_input(
                             PLACEHOLDER_TEXT,
                             &self.text_input_value,
-                            Some(Message::TextInputChanged("".to_string())),
                         )
                         .width(Length::Fill)
                         .on_input(Message::TextInputChanged)
@@ -130,7 +129,6 @@ where
                         search_input(
                             "",
                             &self.text_input_value,
-                            Some(Message::TextInputChanged("".to_string())),
                         )
                         .width(Length::Fill)
                     )

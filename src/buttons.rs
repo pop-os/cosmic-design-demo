@@ -3,7 +3,7 @@
 
 use super::{App, Message};
 use cosmic::iced_core::Alignment;
-use cosmic::widget::{button, column, icon, row, text};
+use cosmic::widget::{button, column, grid, icon, row, text};
 use cosmic::Element;
 
 impl App
@@ -152,201 +152,178 @@ where
 }
 
 fn view_icon_buttons(icon: icon::Handle) -> impl Into<Element<'static, Message>> {
-    row()
-        .spacing(36)
-        // Without Labels
+    grid()
+        .column_alignment(Alignment::Center)
+        .column_spacing(24)
+        .row_alignment(Alignment::Center)
+        .row_spacing(36)
         .push(
-            column()
-                .spacing(24)
-                .align_items(Alignment::Center)
-                .push(
-                    button::icon(icon.clone())
-                        .extra_small()
-                        .on_press(Message::Clicked)
-                        .tooltip("Extra small icon button"),
-                )
-                .push(
-                    button::icon(icon.clone())
-                        .on_press(Message::Clicked)
-                        .tooltip("Small icon button"),
-                )
-                .push(
-                    button::icon(icon.clone())
-                        .medium()
-                        .on_press(Message::Clicked)
-                        .tooltip("Medium icon button"),
-                )
-                .push(
-                    button::icon(icon.clone())
-                        .large()
-                        .on_press(Message::Clicked)
-                        .tooltip("Large icon button"),
-                )
-                .push(
-                    button::icon(icon.clone())
-                        .extra_large()
-                        .on_press(Message::Clicked)
-                        .tooltip("Extra large icon button"),
-                ),
+            button::icon(icon.clone())
+                .extra_small()
+                .on_press(Message::Clicked)
+                .tooltip("Extra small icon button"),
         )
-        // With Labels
         .push(
-            column()
-                .spacing(24)
-                .align_items(Alignment::Center)
-                .push(
-                    button::icon(icon.clone())
-                        .extra_small()
-                        .on_press(Message::Clicked)
-                        .tooltip("Extra small icon button")
-                        .label("Label"),
-                )
-                .push(
-                    button::icon(icon.clone())
-                        .on_press(Message::Clicked)
-                        .tooltip("Small icon button")
-                        .label("Label"),
-                )
-                .push(
-                    button::icon(icon.clone())
-                        .medium()
-                        .on_press(Message::Clicked)
-                        .tooltip("Medium icon button")
-                        .label("Label"),
-                )
-                .push(
-                    button::icon(icon.clone())
-                        .large()
-                        .on_press(Message::Clicked)
-                        .tooltip("Large icon button")
-                        .label("Label"),
-                )
-                .push(
-                    button::icon(icon.clone())
-                        .extra_large()
-                        .on_press(Message::Clicked)
-                        .tooltip("Extra large icon button")
-                        .label("Label"),
-                ),
+            button::icon(icon.clone())
+                .extra_small()
+                .on_press(Message::Clicked)
+                .tooltip("Extra small icon button")
+                .label("Label"),
         )
-        // Disabled
         .push(
-            column()
-                .spacing(24)
-                .align_items(Alignment::Center)
-                .push(
-                    button::icon(icon.clone())
-                        .extra_small()
-                        .tooltip("Extra small icon button")
-                        .label("Label"),
-                )
-                .push(
-                    button::icon(icon.clone())
-                        .tooltip("Small icon button")
-                        .label("Label"),
-                )
-                .push(
-                    button::icon(icon.clone())
-                        .medium()
-                        .tooltip("Medium icon button")
-                        .label("Label"),
-                )
-                .push(
-                    button::icon(icon.clone())
-                        .large()
-                        .tooltip("Large icon button")
-                        .label("Label"),
-                )
-                .push(
-                    button::icon(icon.clone())
-                        .extra_large()
-                        .tooltip("Extra large icon button")
-                        .label("Label"),
-                ),
+            button::icon(icon.clone())
+                .extra_small()
+                .tooltip("Extra small icon button")
+                .label("Label"),
         )
-        // Vertical layout
         .push(
-            column()
-                .spacing(24)
-                .align_items(Alignment::Center)
-                .push(
-                    button::icon(icon.clone())
-                        .extra_small()
-                        .on_press(Message::Clicked)
-                        .tooltip("Extra small icon button")
-                        .label("Label")
-                        .vertical(true),
-                )
-                .push(
-                    button::icon(icon.clone())
-                        .on_press(Message::Clicked)
-                        .tooltip("Small icon button")
-                        .label("Label")
-                        .vertical(true),
-                )
-                .push(
-                    button::icon(icon.clone())
-                        .medium()
-                        .on_press(Message::Clicked)
-                        .tooltip("Medium icon button")
-                        .label("Label")
-                        .vertical(true),
-                )
-                .push(
-                    button::icon(icon.clone())
-                        .large()
-                        .on_press(Message::Clicked)
-                        .tooltip("Large icon button")
-                        .label("Label")
-                        .vertical(true),
-                )
-                .push(
-                    button::icon(icon.clone())
-                        .extra_large()
-                        .on_press(Message::Clicked)
-                        .tooltip("Extra large icon button")
-                        .label("Label")
-                        .vertical(true),
-                ),
+            button::icon(icon.clone())
+                .extra_small()
+                .on_press(Message::Clicked)
+                .tooltip("Extra small icon button")
+                .label("Label")
+                .vertical(true),
         )
-        // Vertical disabled
         .push(
-            column()
-                .spacing(24)
-                .align_items(Alignment::Center)
-                .push(
-                    button::icon(icon.clone())
-                        .extra_small()
-                        .tooltip("Extra small icon button")
-                        .label("Label")
-                        .vertical(true),
-                )
-                .push(
-                    button::icon(icon.clone())
-                        .tooltip("Small icon button")
-                        .label("Label")
-                        .vertical(true),
-                )
-                .push(
-                    button::icon(icon.clone())
-                        .medium()
-                        .tooltip("Medium icon button")
-                        .label("Label")
-                        .vertical(true),
-                )
-                .push(
-                    button::icon(icon.clone())
-                        .large()
-                        .tooltip("Large icon button")
-                        .label("Label")
-                        .vertical(true),
-                )
-                .push(
-                    button::icon(icon)
-                        .extra_large()
-                        .tooltip("Extra large icon button")
-                        .label("Label")
-                        .vertical(true),
-                ),
+            button::icon(icon.clone())
+                .extra_small()
+                .tooltip("Extra small icon button")
+                .label("Label")
+                .vertical(true),
+        )
+        .insert_row()
+        .push(
+            button::icon(icon.clone())
+                .on_press(Message::Clicked)
+                .tooltip("Small icon button"),
+        )
+        .push(
+            button::icon(icon.clone())
+                .on_press(Message::Clicked)
+                .tooltip("Small icon button")
+                .label("Label"),
+        )
+        .push(
+            button::icon(icon.clone())
+                .tooltip("Small icon button")
+                .label("Label"),
+        )
+        .push(
+            button::icon(icon.clone())
+                .on_press(Message::Clicked)
+                .tooltip("Small icon button")
+                .label("Label")
+                .vertical(true),
+        )
+        .push(
+            button::icon(icon.clone())
+                .tooltip("Small icon button")
+                .label("Label")
+                .vertical(true),
+        )
+        .insert_row()
+        .push(
+            button::icon(icon.clone())
+                .medium()
+                .on_press(Message::Clicked)
+                .tooltip("Medium icon button"),
+        )
+        .push(
+            button::icon(icon.clone())
+                .medium()
+                .on_press(Message::Clicked)
+                .tooltip("Medium icon button")
+                .label("Label"),
+        )
+        .push(
+            button::icon(icon.clone())
+                .medium()
+                .tooltip("Medium icon button")
+                .label("Label"),
+        )
+        .push(
+            button::icon(icon.clone())
+                .medium()
+                .on_press(Message::Clicked)
+                .tooltip("Medium icon button")
+                .label("Label")
+                .vertical(true),
+        )
+        .push(
+            button::icon(icon.clone())
+                .medium()
+                .tooltip("Medium icon button")
+                .label("Label")
+                .vertical(true),
+        )
+        .insert_row()
+        .push(
+            button::icon(icon.clone())
+                .large()
+                .on_press(Message::Clicked)
+                .tooltip("Large icon button"),
+        )
+        .push(
+            button::icon(icon.clone())
+                .large()
+                .on_press(Message::Clicked)
+                .tooltip("Large icon button")
+                .label("Label"),
+        )
+        .push(
+            button::icon(icon.clone())
+                .large()
+                .tooltip("Large icon button")
+                .label("Label"),
+        )
+        .push(
+            button::icon(icon.clone())
+                .large()
+                .on_press(Message::Clicked)
+                .tooltip("Large icon button")
+                .label("Label")
+                .vertical(true),
+        )
+        .push(
+            button::icon(icon.clone())
+                .large()
+                .tooltip("Large icon button")
+                .label("Label")
+                .vertical(true),
+        )
+        .insert_row()
+        .push(
+            button::icon(icon.clone())
+                .extra_large()
+                .on_press(Message::Clicked)
+                .tooltip("Extra large icon button"),
+        )
+        .push(
+            button::icon(icon.clone())
+                .extra_large()
+                .on_press(Message::Clicked)
+                .tooltip("Extra large icon button")
+                .label("Label"),
+        )
+        .push(
+            button::icon(icon.clone())
+                .extra_large()
+                .tooltip("Extra large icon button")
+                .label("Label"),
+        )
+        .push(
+            button::icon(icon.clone())
+                .extra_large()
+                .on_press(Message::Clicked)
+                .tooltip("Extra large icon button")
+                .label("Label")
+                .vertical(true),
+        )
+        .push(
+            button::icon(icon)
+                .extra_large()
+                .tooltip("Extra large icon button")
+                .label("Label")
+                .vertical(true),
         )
 }

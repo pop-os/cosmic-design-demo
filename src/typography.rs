@@ -13,7 +13,7 @@ where
         static SAMPLE_TEXT: &str = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
 
         grid()
-            .column_spacing(16)
+            .column_spacing(8)
             .row_spacing(32)
             // Header
             .push(text::heading("Text Style"))
@@ -22,9 +22,7 @@ where
             .push(text::heading("Weight"))
             .push(text::heading("Two-line Example"))
             .insert_row()
-            .push_with(divider::horizontal::default(), |item| {
-                item.width(5)
-            })
+            .push_with(divider::horizontal::default(), |cell| cell.width(6))
             // Title 1
             .insert_row()
             .push(text::title1("Title 1"))

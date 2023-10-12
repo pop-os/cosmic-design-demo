@@ -11,9 +11,13 @@ tracing-subscriber = "0.3.17"
 [dependencies.libcosmic]
 git = "https://github.com/pop-os/libcosmic"
 default-features = false
-features = ["debug", "winit", "tokio"]
+features = ["debug", "wayland", "tokio"]
 
 [dependencies.cosmic-time]
 git = "https://github.com/pop-os/cosmic-time"
 default-features = false
 features = ["libcosmic", "once_cell"]
+
+# [patch."https://github.com/pop-os/libcosmic"]
+#libcosmic = { path = "../../" }
+# libcosmic = { git = "https://github.com/pop-os/libcosmic?rev=context-drawer", branch = "context-drawer" }

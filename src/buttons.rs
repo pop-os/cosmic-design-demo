@@ -25,13 +25,13 @@ where
             .push(
                 row()
                     .spacing(36)
-                    .push(button::suggested("Label").on_press(Message::Clicked))
-                    .push(button::suggested("Label").on_press(Message::Clicked).leading_icon(self.leading_icon.clone()))
-                    .push(button::suggested("Label").on_press(Message::Clicked).trailing_icon(self.trailing_icon.clone()))
-                    .push(button::suggested("Label").on_press(Message::Clicked).leading_icon(self.app_icon.clone()))
+                    .push(button::suggested("Label").on_press(Message::ShowContext("Suggested Button")))
+                    .push(button::suggested("Label").on_press(Message::ShowContext("Suggested Button")).leading_icon(self.leading_icon.clone()))
+                    .push(button::suggested("Label").on_press(Message::ShowContext("Suggested Button")).trailing_icon(self.trailing_icon.clone()))
+                    .push(button::suggested("Label").on_press(Message::ShowContext("Suggested Button")).leading_icon(self.app_icon.clone()))
                     .push(
                         button::suggested("Label")
-                            .on_press(Message::Clicked)
+                            .on_press(Message::ShowContext("Suggested Button"))
                             .leading_icon(self.app_icon.clone())
                             .trailing_icon(self.trailing_icon.clone())
                     )
@@ -52,13 +52,13 @@ where
             .push(
                 row()
                     .spacing(36)
-                    .push(button::destructive("Label").on_press(Message::Clicked))
-                    .push(button::destructive("Label").on_press(Message::Clicked).leading_icon(self.leading_icon.clone()))
-                    .push(button::destructive("Label").on_press(Message::Clicked).trailing_icon(self.trailing_icon.clone()))
-                    .push(button::destructive("Label").on_press(Message::Clicked).leading_icon(self.app_icon.clone()))
+                    .push(button::destructive("Label").on_press(Message::ShowContext("Destructive Button")))
+                    .push(button::destructive("Label").on_press(Message::ShowContext("Destructive Button")).leading_icon(self.leading_icon.clone()))
+                    .push(button::destructive("Label").on_press(Message::ShowContext("Destructive Button")).trailing_icon(self.trailing_icon.clone()))
+                    .push(button::destructive("Label").on_press(Message::ShowContext("Destructive Button")).leading_icon(self.app_icon.clone()))
                     .push(
                         button::destructive("Label")
-                            .on_press(Message::Clicked)
+                            .on_press(Message::ShowContext("Destructive Button"))
                             .leading_icon(self.app_icon.clone())
                             .trailing_icon(self.trailing_icon.clone())
                     )
@@ -85,13 +85,13 @@ where
             .push(
                 row()
                     .spacing(36)
-                    .push(button::standard("Label").on_press(Message::Clicked))
-                    .push(button::standard("Label").on_press(Message::Clicked).leading_icon(self.leading_icon.clone()))
-                    .push(button::standard("Label").on_press(Message::Clicked).trailing_icon(self.trailing_icon.clone()))
-                    .push(button::standard("Label").on_press(Message::Clicked).leading_icon(self.app_icon.clone()))
+                    .push(button::standard("Label").on_press(Message::ShowContext("Standard Button")))
+                    .push(button::standard("Label").on_press(Message::ShowContext("Standard Button")).leading_icon(self.leading_icon.clone()))
+                    .push(button::standard("Label").on_press(Message::ShowContext("Standard Button")).trailing_icon(self.trailing_icon.clone()))
+                    .push(button::standard("Label").on_press(Message::ShowContext("Standard Button")).leading_icon(self.app_icon.clone()))
                     .push(
                         button::standard("Label")
-                            .on_press(Message::Clicked)
+                            .on_press(Message::ShowContext("Standard Button"))
                             .leading_icon(self.app_icon.clone())
                             .trailing_icon(self.trailing_icon.clone())
                     )
@@ -116,13 +116,13 @@ where
             .push(
                 row()
                     .spacing(36)
-                    .push(button::text("Label").on_press(Message::Clicked))
-                    .push(button::text("Label").on_press(Message::Clicked).leading_icon(self.leading_icon.clone()))
-                    .push(button::text("Label").on_press(Message::Clicked).trailing_icon(self.trailing_icon.clone()))
-                    .push(button::text("Label").on_press(Message::Clicked).leading_icon(self.app_icon.clone()))
+                    .push(button::text("Label").on_press(Message::ShowContext("Text Button")))
+                    .push(button::text("Label").on_press(Message::ShowContext("Text Button")).leading_icon(self.leading_icon.clone()))
+                    .push(button::text("Label").on_press(Message::ShowContext("Text Button")).trailing_icon(self.trailing_icon.clone()))
+                    .push(button::text("Label").on_press(Message::ShowContext("Text Button")).leading_icon(self.app_icon.clone()))
                     .push(
                         button::text("Label")
-                            .on_press(Message::Clicked)
+                            .on_press(Message::ShowContext("Text Button"))
                             .leading_icon(self.app_icon.clone())
                             .trailing_icon(self.trailing_icon.clone())
                     )
@@ -134,16 +134,16 @@ where
             )
             // Icon buttons
             .push(text::title1("Icon Buttons"))
-            .push(view_icon_buttons(self.bt_icon.clone()))
+            .push(view_icon_buttons(self.bt_icon.clone(), "Icon Buttons"))
             .push(text::title1("App Icon Buttons"))
-            .push(view_icon_buttons(self.app_icon.clone()))
+            .push(view_icon_buttons(self.app_icon.clone(), "App Icon Buttons"))
             .push(text::title1("Hyperlinks"))
             .push(text::body("All the buttons have Default, Hover, Pressed, and Disabled states. Buttons in any of the states can have a Focused indicator signifying the button is ready to interact."))
             .push(
                 row()
                     .spacing(36)
-                    .push(button::link("Hyperlink").on_press(Message::Clicked))
-                    .push(button::link("Hyperlink").trailing_icon(true).on_press(Message::Clicked))
+                    .push(button::link("Hyperlink").on_press(Message::ShowContext("Hyperlink")))
+                    .push(button::link("Hyperlink").trailing_icon(true).on_press(Message::ShowContext("Hyperlink")))
                     .push(button::link("Hyperlink"))
                     .push(button::link("Hyperlink").trailing_icon(true))
             )
@@ -151,7 +151,10 @@ where
     }
 }
 
-fn view_icon_buttons(icon: icon::Handle) -> impl Into<Element<'static, Message>> {
+fn view_icon_buttons(
+    icon: icon::Handle,
+    context_header: &'static str,
+) -> impl Into<Element<'static, Message>> {
     grid()
         .column_alignment(Alignment::Center)
         .column_spacing(24)
@@ -160,13 +163,13 @@ fn view_icon_buttons(icon: icon::Handle) -> impl Into<Element<'static, Message>>
         .push(
             button::icon(icon.clone())
                 .extra_small()
-                .on_press(Message::Clicked)
+                .on_press(Message::ShowContext(context_header))
                 .tooltip("Extra small icon button"),
         )
         .push(
             button::icon(icon.clone())
                 .extra_small()
-                .on_press(Message::Clicked)
+                .on_press(Message::ShowContext(context_header))
                 .tooltip("Extra small icon button")
                 .label("Label"),
         )
@@ -179,7 +182,7 @@ fn view_icon_buttons(icon: icon::Handle) -> impl Into<Element<'static, Message>>
         .push(
             button::icon(icon.clone())
                 .extra_small()
-                .on_press(Message::Clicked)
+                .on_press(Message::ShowContext(context_header))
                 .tooltip("Extra small icon button")
                 .label("Label")
                 .vertical(true),
@@ -194,12 +197,12 @@ fn view_icon_buttons(icon: icon::Handle) -> impl Into<Element<'static, Message>>
         .insert_row()
         .push(
             button::icon(icon.clone())
-                .on_press(Message::Clicked)
+                .on_press(Message::ShowContext(context_header))
                 .tooltip("Small icon button"),
         )
         .push(
             button::icon(icon.clone())
-                .on_press(Message::Clicked)
+                .on_press(Message::ShowContext(context_header))
                 .tooltip("Small icon button")
                 .label("Label"),
         )
@@ -210,7 +213,7 @@ fn view_icon_buttons(icon: icon::Handle) -> impl Into<Element<'static, Message>>
         )
         .push(
             button::icon(icon.clone())
-                .on_press(Message::Clicked)
+                .on_press(Message::ShowContext(context_header))
                 .tooltip("Small icon button")
                 .label("Label")
                 .vertical(true),
@@ -225,13 +228,13 @@ fn view_icon_buttons(icon: icon::Handle) -> impl Into<Element<'static, Message>>
         .push(
             button::icon(icon.clone())
                 .medium()
-                .on_press(Message::Clicked)
+                .on_press(Message::ShowContext(context_header))
                 .tooltip("Medium icon button"),
         )
         .push(
             button::icon(icon.clone())
                 .medium()
-                .on_press(Message::Clicked)
+                .on_press(Message::ShowContext(context_header))
                 .tooltip("Medium icon button")
                 .label("Label"),
         )
@@ -244,7 +247,7 @@ fn view_icon_buttons(icon: icon::Handle) -> impl Into<Element<'static, Message>>
         .push(
             button::icon(icon.clone())
                 .medium()
-                .on_press(Message::Clicked)
+                .on_press(Message::ShowContext(context_header))
                 .tooltip("Medium icon button")
                 .label("Label")
                 .vertical(true),
@@ -260,13 +263,13 @@ fn view_icon_buttons(icon: icon::Handle) -> impl Into<Element<'static, Message>>
         .push(
             button::icon(icon.clone())
                 .large()
-                .on_press(Message::Clicked)
+                .on_press(Message::ShowContext(context_header))
                 .tooltip("Large icon button"),
         )
         .push(
             button::icon(icon.clone())
                 .large()
-                .on_press(Message::Clicked)
+                .on_press(Message::ShowContext(context_header))
                 .tooltip("Large icon button")
                 .label("Label"),
         )
@@ -279,7 +282,7 @@ fn view_icon_buttons(icon: icon::Handle) -> impl Into<Element<'static, Message>>
         .push(
             button::icon(icon.clone())
                 .large()
-                .on_press(Message::Clicked)
+                .on_press(Message::ShowContext(context_header))
                 .tooltip("Large icon button")
                 .label("Label")
                 .vertical(true),
@@ -295,13 +298,13 @@ fn view_icon_buttons(icon: icon::Handle) -> impl Into<Element<'static, Message>>
         .push(
             button::icon(icon.clone())
                 .extra_large()
-                .on_press(Message::Clicked)
+                .on_press(Message::ShowContext(context_header))
                 .tooltip("Extra large icon button"),
         )
         .push(
             button::icon(icon.clone())
                 .extra_large()
-                .on_press(Message::Clicked)
+                .on_press(Message::ShowContext(context_header))
                 .tooltip("Extra large icon button")
                 .label("Label"),
         )
@@ -314,7 +317,7 @@ fn view_icon_buttons(icon: icon::Handle) -> impl Into<Element<'static, Message>>
         .push(
             button::icon(icon.clone())
                 .extra_large()
-                .on_press(Message::Clicked)
+                .on_press(Message::ShowContext(context_header))
                 .tooltip("Extra large icon button")
                 .label("Label")
                 .vertical(true),

@@ -12,13 +12,18 @@ use cosmic::cosmic_theme::palette::{rgb::Rgb, Srgba};
 use cosmic::cosmic_theme::ThemeBuilder;
 use cosmic::iced::Length;
 use cosmic::widget::{
-    button, column, container, icon, nav_bar, scrollable, segmented_button, spin_button,
+    button, column, container, icon, list_column, nav_bar, row, scrollable, segmented_button,
+    spin_button, text,
 };
 use cosmic::{executor, ApplicationExt, Apply, Element, Theme};
 use cosmic_time::Timeline;
 use debug::ThemeVariant;
 use fraction::{Decimal, ToPrimitive};
 use std::sync::Arc;
+
+const SAMPLE_TEXT_LONG: &str = "Lorem ipsum dolor sit amet consectetur. Eros magna diam \
+morbi lectus. Vulputate nunc est proin viverra sem vulputate accumsan. Mauris nulla eu \
+viverra eu cursus. Fringilla varius in cras velit neque amet parturient elit.";
 
 #[derive(Clone, Copy)]
 pub enum Page {
@@ -59,7 +64,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 pub enum Message {
     CardsToggled(bool),
     CheckboxToggled(bool),
-    Clicked,
     DebugToggled(bool),
     Ignore,
     LayerSelect(&'static str),
@@ -67,6 +71,7 @@ pub enum Message {
     ScalingFactorChanged(spin_button::Message),
     SecureInputToggled,
     Selection(segmented_button::Entity),
+    ShowContext(&'static str),
     SliderChanged(f32),
     TextInputChanged(String),
     ThemeChanged(ThemeVariant),
@@ -186,6 +191,27 @@ impl cosmic::Application for App {
         (app, command)
     }
 
+    fn context_drawer(&self) -> Option<Element<Self::Message>> {
+        if self.core.window.show_context {
+            Some(
+                column::with_capacity(2)
+                    .spacing(24)
+                    .push(text::body(SAMPLE_TEXT_LONG))
+                    .push(
+                        list_column()
+                            .add(list_item_template())
+                            .add(list_item_template())
+                            .add(list_item_template())
+                            .add(list_item_template())
+                            .add(list_item_template()),
+                    )
+                    .into(),
+            )
+        } else {
+            None
+        }
+    }
+
     /// Allows COSMIC to integrate with your application's [`nav_bar::Model`].
     fn nav_model(&self) -> Option<&nav_bar::Model> {
         Some(&self.nav_model)
@@ -206,8 +232,9 @@ impl cosmic::Application for App {
                 self.text_input_value = input;
             }
 
-            Message::Clicked => {
-                eprintln!("button clicked");
+            Message::ShowContext(context_message) => {
+                self.core.window.show_context = true;
+                self.set_context_title(context_message.to_owned());
             }
 
             Message::CardsToggled(value) => {
@@ -338,8 +365,8 @@ where
     fn update_title(&mut self) -> Command<Message> {
         let title = self.active_page_title().to_owned();
         let window_title = format!("{title} - COSMIC Design System");
-        self.core.window.header_title = title.clone();
-        self.set_title(window_title)
+        self.set_header_title(title);
+        self.set_window_title(window_title)
     }
 
     fn update_togglers(&mut self) {
@@ -353,4 +380,14 @@ where
 
         self.timeline.start();
     }
+}
+
+fn list_item_template<Message: 'static>() -> cosmic::widget::Row<'static, Message> {
+    cosmic::widget::settings::item(
+        "Label",
+        row::with_capacity(2)
+            .spacing(4)
+            .push(text::body("Label"))
+            .push(icon::from_name("pan-down-symbolic").size(16)),
+    )
 }

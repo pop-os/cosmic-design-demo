@@ -19,5 +19,5 @@ default-features = false
 features = ["libcosmic", "once_cell"]
 
 # [patch."https://github.com/pop-os/libcosmic"]
-#libcosmic = { path = "../../" }
+# libcosmic = { path = "../../" }
 # libcosmic = { git = "https://github.com/pop-os/libcosmic?rev=context-drawer", branch = "context-drawer" }

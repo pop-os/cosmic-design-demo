@@ -66,8 +66,8 @@ pub enum Message {
     CheckboxToggled(bool),
     DebugToggled(bool),
     Ignore,
-    LayerSelect(&'static str),
-    PickListSelected(&'static str),
+    LayerSelect(usize),
+    DropdownSelect(usize),
     ScalingFactorChanged(spin_button::Message),
     SecureInputToggled,
     Selection(segmented_button::Entity),
@@ -83,7 +83,8 @@ pub enum Message {
 pub struct App {
     core: Core,
     nav_model: nav_bar::Model,
-    layer_selection: &'static str,
+    layers: &'static [&'static str],
+    layer_selection: usize,
 
     // cosmic-time dependency
     timeline: Timeline,
@@ -103,8 +104,8 @@ pub struct App {
 
     // Inputs page
     checkbox_value: bool,
-    pick_list_selected: Option<&'static str>,
-    pick_list_options: Vec<&'static str>,
+    dropdown_selected: Option<usize>,
+    dropdown_options: Vec<&'static str>,
     text_input_value: String,
     secure_input_visible: bool,
     selection: segmented_button::SingleSelectModel,
@@ -148,7 +149,8 @@ impl cosmic::Application for App {
 
         let mut app = App {
             nav_model,
-            layer_selection: "Default",
+            layers: &["Default", "Primary", "Secondary"][..],
+            layer_selection: 0,
 
             // cosmic-time dependency
             timeline: Timeline::default(),
@@ -172,8 +174,8 @@ impl cosmic::Application for App {
 
             // Inputs page
             checkbox_value: false,
-            pick_list_selected: Some("Option 1"),
-            pick_list_options: vec!["Option 1", "Option 2", "Option 3", "Option 4"],
+            dropdown_selected: Some(0),
+            dropdown_options: vec!["Option 1", "Option 2", "Option 3", "Option 4"],
             text_input_value: String::new(),
             secure_input_visible: false,
             selection: segmented_button::Model::builder()
@@ -269,7 +271,7 @@ impl cosmic::Application for App {
                 eprintln!("card toggler: {value}");
             }
 
-            Message::PickListSelected(value) => self.pick_list_selected = Some(value),
+            Message::DropdownSelect(value) => self.dropdown_selected = Some(value),
 
             Message::ThemeChanged(theme) => {
                 return cosmic::app::command::set_theme(match theme {
@@ -322,15 +324,13 @@ impl cosmic::Application for App {
             // Place debug view atop each page
             .push(self.view_debug())
             // Insert page view beneath it
-            .push(
-                container(page_view)
-                    .width(Length::Fill)
-                    .style(match self.layer_selection {
-                        "Primary" => cosmic::theme::Container::Primary,
-                        "Secondary" => cosmic::theme::Container::Secondary,
-                        _ => cosmic::theme::Container::default(),
-                    }),
-            )
+            .push(container(page_view).width(Length::Fill).style(
+                match self.layers[self.layer_selection] {
+                    "Primary" => cosmic::theme::Container::Primary,
+                    "Secondary" => cosmic::theme::Container::Secondary,
+                    _ => cosmic::theme::Container::default(),
+                },
+            ))
             // Wrap page views in container that expands up to 1000 px wide.
             .apply(container)
             .width(Length::Fill)

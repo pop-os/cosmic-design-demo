@@ -4,7 +4,7 @@
 use super::{App, Message};
 use cosmic::iced_core::{Alignment, Length};
 use cosmic::widget::{
-    checkbox, column, container, inline_input, pick_list, progress_bar, row, search_input,
+    checkbox, column, container, dropdown, inline_input, progress_bar, row, search_input,
     secure_input, segmented_selection, slider, text, text_input, view_switcher,
 };
 use cosmic::{Apply, Element};
@@ -26,12 +26,12 @@ where
                     Message::CheckboxToggled,
                 )
             )
-            .push(text::title1("Pick List"))
+            .push(text::title1("Dropdown"))
             .push(
-                pick_list(
-                    &self.pick_list_options,
-                    self.pick_list_selected,
-                    Message::PickListSelected,
+                dropdown(
+                    &self.dropdown_options,
+                    self.dropdown_selected,
+                    Message::DropdownSelect,
                 )
             )
             .push(text::title1("Progress Bar"))

@@ -6,7 +6,7 @@ use cosmic::iced::Length;
 use cosmic::prelude::*;
 use cosmic::theme::ThemeType;
 use cosmic::widget::{
-    column, container, divider, list, pick_list, radio, row, settings, spin_button, text,
+    column, container, divider, dropdown, list, radio, row, settings, spin_button, text,
 };
 use cosmic::Element;
 use cosmic_time::{anim, id, once_cell::sync::Lazy};
@@ -125,8 +125,8 @@ where
                             .push(divider::horizontal::light())
                             .push(settings::item(
                                 "Layer",
-                                pick_list(
-                                    &["Default", "Primary", "Secondary"][..],
+                                dropdown(
+                                    self.layers,
                                     Some(self.layer_selection),
                                     Message::LayerSelect,
                                 ),

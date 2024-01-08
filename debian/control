@@ -7,7 +7,7 @@ Build-Depends:
     clang,
     cmake,
     debhelper-compat (=13),
-    just (>= 1.13.0),
+    just (>= 1.22.0),
     libexpat1-dev,
     libfontconfig-dev,
     libfreetype-dev,

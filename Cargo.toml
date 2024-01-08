@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-fraction = "0.13.1"
+fraction = "0.14"
 tracing = "0.1.37"
 tracing-subscriber = "0.3.17"
 
@@ -17,6 +17,9 @@ features = ["debug", "wayland", "tokio"]
 git = "https://github.com/pop-os/cosmic-time"
 default-features = false
 features = ["libcosmic", "once_cell"]
+
+[patch.crates-io]
+smithay-client-toolkit = { git = "https://github.com/pop-os/client-toolkit", branch = "wayland-resize" }
 
 # [patch."https://github.com/pop-os/libcosmic"]
 # libcosmic = { path = "../../" }

@@ -17,7 +17,7 @@ override_dh_auto_clean:
 	fi
 
 override_dh_auto_build:
-	just --unstable build-vendored
+	just build-vendored
 
 override_dh_auto_install:
-	just --unstable rootdir=$(DESTDIR) install
+	just rootdir=$(DESTDIR) install

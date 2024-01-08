@@ -10,7 +10,7 @@ mod typography;
 use cosmic::app::{Command, Core, Settings};
 use cosmic::cosmic_theme::palette::{rgb::Rgb, Srgba};
 use cosmic::cosmic_theme::ThemeBuilder;
-use cosmic::iced::Length;
+use cosmic::iced::{window, Length};
 use cosmic::widget::{
     button, column, container, icon, list_column, nav_bar, row, scrollable, segmented_button,
     spin_button, text,
@@ -51,7 +51,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .antialiasing(true)
         .client_decorations(true)
         .debug(false)
-        .size((1280, 768))
+        .size([1280, 768].into())
         .theme(cosmic::Theme::dark());
 
     cosmic::app::run::<App>(settings, ())?;
@@ -366,7 +366,7 @@ where
         let title = self.active_page_title().to_owned();
         let window_title = format!("{title} - COSMIC Design System");
         self.set_header_title(title);
-        self.set_window_title(window_title)
+        self.set_window_title(window_title, window::Id::MAIN)
     }
 
     fn update_togglers(&mut self) {

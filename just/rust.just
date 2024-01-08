@@ -14,16 +14,20 @@ linker-arg := if clang-path != '' {
 
 export RUSTFLAGS := linker-arg + env_var_or_default('RUSTFLAGS', '')
 
+[no-cd]
 [private]
 default: build-release
 
 # Compile with release profile
+[no-cd]
 build-release *args: (build '--release' args)
 
 # Compile with a vendored tarball
+[no-cd]
 build-vendored *args: vendor-extract (build-release '--offline --locked' args)
 
 # Vendor Cargo dependencies locally
+[no-cd]
 vendor *args:
     rm -rf .cargo vendor vendor.tar
     mkdir -p .cargo
@@ -33,6 +37,7 @@ vendor *args:
     rm -rf vendor
 
 # Extracts vendored dependencies
+[no-cd]
 [private]
 vendor-extract:
     rm -rf vendor
